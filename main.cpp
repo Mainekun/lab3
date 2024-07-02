@@ -1,5 +1,4 @@
 #include <iostream>
-#include <map>
 #include <vector>
 #include <cmath>
 
@@ -52,7 +51,6 @@ int main() {
             }
         }
     }
-
 
 
     //--------------
