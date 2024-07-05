@@ -57,6 +57,7 @@ int main() {
     //--------------
     //Вывод значений
     //--------------
+    size_t max_count = *max_element(bins.begin(), bins.end());
     for (auto bin_val : bins) {
         if (bin_val < 100) cout << " ";
         if (bin_val < 10) cout << " ";
@@ -64,8 +65,8 @@ int main() {
         cout << "|";
 
         int astericses;
-        if (max_n > MAX_ASTERICS)
-            astericses = MAX_ASTERICS * (static_cast<double>(bin_val) / max_n);
+        if (max_count > MAX_ASTERICS)
+            astericses = MAX_ASTERICS * (static_cast<double>(bin_val) / max_count);
         else astericses = bin_val;
         for (size_t i = 0; i < astericses || i == 0; i++) {
             cout << '*';
@@ -79,18 +80,12 @@ int main() {
     //  +-------+  //
     //шкала
     cout << "   |";
-    size_t max_count = *max_element(bins.begin(), bins.end());
     size_t floor = max_count > MAX_ASTERICS ? MAX_ASTERICS : max_count;
-    size_t steps_count = floor / step * step;
+    size_t steps_count = ceil(static_cast<double>(floor) / step);
     if (steps_count == 1) steps_count++;
 
-    bool stop = false;
-    for (size_t i = 0; !stop && i < step * steps_count; i += step) {
+    for (size_t i = 0; i < steps_count && (i * step) < floor; i++) {
         for (size_t j = 1; j < step; j++) {
-            if (i + j >= floor || i + j > step * 2 + 1) {
-                stop = true;
-                break;
-            }
             cout << "-";
         }
         cout << "|";
@@ -103,10 +98,10 @@ int main() {
     double point = max_n > MAX_ASTERICS
         ? static_cast<double>(max_n) / MAX_ASTERICS
         : 1;
-    for (size_t i = 0; i < floor - 1 || i < 2 * step - 3; i++) {
+    for (size_t i = 0; i < steps_count * step - 1 || i < 2 * step - 1; i++) {
         if (i == step - 1) {
             size_t second_num = round(point * step);
-            cout << second_num; 
+            cout << second_num;
             if (second_num > 10) i++;
             if (second_num > 100) i++;
             continue;
@@ -114,5 +109,5 @@ int main() {
 
         cout << " ";
     }
-    cout << round(point * floor);
+    cout << round(point * max_count);
 }
