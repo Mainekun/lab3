@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <cmath>
+#include <algorithm>
 
 using namespace std;
 
@@ -78,10 +79,18 @@ int main() {
     //  +-------+  //
     //шкала
     cout << "   |";
+    size_t max_count = *max_element(bins.begin(), bins.end());
+    size_t floor = max_count > MAX_ASTERICS ? MAX_ASTERICS : max_count;
+    size_t steps_count = floor / step * step;
+    if (steps_count == 1) steps_count++;
 
-    for (size_t i = 0; i < MAX_ASTERICS; i += step) {
-        for (size_t j = 1; (j < step); j++) {
-            if (i + j >= MAX_ASTERICS) break;
+    bool stop = false;
+    for (size_t i = 0; !stop && i < step * steps_count; i += step) {
+        for (size_t j = 1; j < step; j++) {
+            if (i + j >= floor || i + j > step * 2 + 1) {
+                stop = true;
+                break;
+            }
             cout << "-";
         }
         cout << "|";
@@ -94,10 +103,10 @@ int main() {
     double point = max_n > MAX_ASTERICS
         ? static_cast<double>(max_n) / MAX_ASTERICS
         : 1;
-    for (size_t i = 0; i < MAX_ASTERICS - 1; i++) {
+    for (size_t i = 0; i < floor - 1 || i < 2 * step - 3; i++) {
         if (i == step - 1) {
             size_t second_num = round(point * step);
-            cout << second_num;
+            cout << second_num; 
             if (second_num > 10) i++;
             if (second_num > 100) i++;
             continue;
@@ -105,5 +114,5 @@ int main() {
 
         cout << " ";
     }
-    cout << round(point * MAX_ASTERICS);
+    cout << round(point * floor);
 }
