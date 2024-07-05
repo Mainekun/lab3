@@ -92,8 +92,8 @@ int main() {
 
     //подписи
     double point = max_n > MAX_ASTERICS
-        ? static_cast<double>(max_n)
-        / MAX_ASTERICS : 1;
+        ? static_cast<double>(max_n) / MAX_ASTERICS
+        : 1;
     for (size_t i = 0; i < MAX_ASTERICS - 1; i++) {
         if (i == step - 1) {
             size_t second_num = round(point * step);
