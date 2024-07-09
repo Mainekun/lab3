@@ -1,0 +1,1 @@
+histosvg.exe < input.txt > output.xml
