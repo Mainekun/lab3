@@ -12,7 +12,7 @@ void input_main_values(size_t& num_count, size_t& bin_count, size_t& step) {
 }
 
 bool valid_step(size_t step) {
-    if (step < 4 || step > 9) {
+    if (step < 2 || step > 9) {
         cout << "ERROR";
         return 0;
     }
@@ -35,10 +35,14 @@ vector<size_t> make_histogram
 (const vector<size_t> nums, const size_t min_num, const size_t max_num, const size_t bin_count) {
     double step = static_cast<double>(max_num - min_num) / bin_count;
     vector<size_t> bins(bin_count);
+    if (step == 0) {
+        bins[0] = nums.size();
+        return bins;
+    }
     for (auto num : nums) 
         for (size_t i = 0; i < bin_count; i++)
             if ((num >= min_num + step * i && num < min_num + step * (i + 1)) ||
-                i == bin_count) {
+                i == bin_count - 1) {
                     bins[i]++;
                     break;
                 }

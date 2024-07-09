@@ -35,5 +35,7 @@ int main() {
     //find_min_max(vec, &max, &min)
     test_three_num();
     test_one_num();
+    test_three_similar();
+    test_zero_num();
 }
 
