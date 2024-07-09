@@ -42,7 +42,7 @@ void show_svg_histogram(vector<size_t> bins, size_t step, size_t max_n) {
         size_t rect_length;
         if (max_count * BOX_POINT  > WIDTH_BOX - 50)
             rect_length = RECT_BOX * (static_cast<double>(bin) / max_count);
-        else rect_length = bin * 5;
+        else rect_length = bin * BOX_POINT;
         svg_rect(50, ROW_HEIGHT * i, ROW_HEIGHT, rect_length);
     }
     #undef bin
